@@ -4,6 +4,7 @@ import static java.util.Collections.singletonList;
 import static java.util.stream.Collectors.toList;
 
 import java.util.List;
+import java.util.function.BinaryOperator;
 import java.util.stream.Stream;
 
 import lombok.AllArgsConstructor;
@@ -11,6 +12,8 @@ import lombok.Value;
 
 @Value
 class ExpenseReport {
+
+	private static final int MATCH_VALUE = 2020;
 
 	List<Integer> expenses;
 
@@ -38,6 +41,7 @@ class ExpenseReport {
 		} else {
 			return expenses.stream()
 					.map(permutation::extendPermutation)
+					.filter(ExpensePermutation::lowerOrEqualTo2020)
 					.flatMap(extendedPermutation -> extendPermutation(extendedPermutation, permutationLength - 1));
 		}
 	}
@@ -48,12 +52,20 @@ class ExpenseReport {
 
 		List<Integer> expenses;
 
+		boolean lowerOrEqualTo2020() {
+			return reducePermutation(Integer::sum) <= MATCH_VALUE;
+		}
+
 		boolean matches2020() {
-			return expenses.stream().reduce(Integer::sum).orElseThrow(IllegalArgumentException::new) == 2020;
+			return reducePermutation(Integer::sum) == MATCH_VALUE;
 		}
 
 		long multiply() {
-			return expenses.stream().reduce(Math::multiplyExact).orElseThrow(IllegalArgumentException::new);
+			return reducePermutation(Math::multiplyExact);
+		}
+
+		private Integer reducePermutation(BinaryOperator<Integer> reduceFunction) {
+			return expenses.stream().reduce(reduceFunction).orElseThrow(IllegalArgumentException::new);
 		}
 
 		ExpensePermutation extendPermutation(int expense) {
