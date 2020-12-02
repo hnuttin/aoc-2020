@@ -9,13 +9,16 @@ import lombok.Builder;
 import lombok.Value;
 
 @Value
-@Builder(builderMethodName = "anAocApp", setterPrefix = "with")
+@Builder(builderMethodName = "forDay", setterPrefix = "with")
 public class AocApp {
+
+	int day;
 
 	Supplier<Object> part1;
 	Supplier<Object> part2;
 
 	private void run() {
+		System.out.printf("Day %s...%n", day);
 		runPart(part1, 1);
 		runPart(part2, 2);
 	}
@@ -25,12 +28,12 @@ public class AocApp {
 			StopWatch stopWatch = StopWatch.createStarted();
 			Object result = part.get();
 			stopWatch.stop();
-			System.out.printf("Part %s (%sms): %s%n", partNumber, stopWatch.getTime(TimeUnit.MILLISECONDS), result);
+			System.out.printf("\tPart %s (%sms): %s%n", partNumber, stopWatch.getTime(TimeUnit.MILLISECONDS), result);
 		}
 	}
 
-	public static AocAppBuilder anAocApp() {
-		return new AocAppBuilder();
+	public static AocAppBuilder forDay(int day) {
+		return new AocAppBuilder().withDay(day);
 	}
 
 	public static class AocAppBuilder {

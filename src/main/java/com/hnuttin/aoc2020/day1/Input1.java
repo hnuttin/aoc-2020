@@ -3,9 +3,9 @@ package com.hnuttin.aoc2020.day1;
 import java.util.Arrays;
 import java.util.List;
 
-public class Input1 {
+class Input1 {
 
-    static List<Integer> INPUT1 = Arrays.asList(
+    static final List<Integer> INPUT1 = Arrays.asList(
             1844,
             1123,
             1490,
