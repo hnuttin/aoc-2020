@@ -1,4 +1,4 @@
-package com.hnuttin.aoc2020;
+package com.hnuttin.aoc2020.common.app;
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;

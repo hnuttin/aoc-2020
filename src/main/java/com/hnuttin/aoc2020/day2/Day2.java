@@ -4,7 +4,7 @@ import static java.util.stream.Collectors.toList;
 
 import java.util.List;
 
-import com.hnuttin.aoc2020.AocApp;
+import com.hnuttin.aoc2020.common.app.AocApp;
 
 public class Day2 {
 
