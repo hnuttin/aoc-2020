@@ -8,7 +8,7 @@ import com.hnuttin.aoc2020.common.Slope;
 import lombok.Value;
 
 @Value
-public class TreeMap {
+class TreeMap {
 
 	Boolean[][] trees;
 

@@ -5,7 +5,7 @@ import java.util.stream.Stream;
 import com.hnuttin.aoc2020.common.Coordinate;
 import com.hnuttin.aoc2020.common.Slope;
 
-public class SlopeChecker {
+class SlopeChecker {
 
 	static long countTotalTrees(TreeMap treeMap) {
 		Stream<Slope> slopes = Stream.of(
