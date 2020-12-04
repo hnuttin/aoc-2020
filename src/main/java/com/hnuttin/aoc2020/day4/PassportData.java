@@ -86,9 +86,19 @@ class PassportData {
 		String fieldName;
 		String value;
 
-		abstract boolean isValid();
+		boolean required;
 
-		abstract boolean isRequired();
+		public PassportEntry(String fieldName, String value) {
+			this.fieldName = fieldName;
+			this.value = value;
+			this.required = REQUIRED_FIELDS.contains(fieldName);
+		}
+
+		boolean isRequired() {
+			return required;
+		}
+
+		abstract boolean isValid();
 
 	}
 
@@ -105,35 +115,20 @@ class PassportData {
 		public boolean isValid() {
 			return false;
 		}
-
-		@Override
-		public boolean isRequired() {
-			return false;
-		}
 	}
 
 	@Value
-	@NonFinal
-	@ToString(callSuper = true)
-	@EqualsAndHashCode(callSuper = true)
-	static abstract class YearEntry extends PassportEntry {
+	static class YearValidator {
 
 		int min;
 		int max;
 
-		public YearEntry(String fieldName, String value, int min, int max) {
-			super(fieldName, value);
-			this.min = min;
-			this.max = max;
+		public boolean isValid(String value) {
+			return StringUtils.isNotBlank(value) && value.length() == 4 && betweenMinMax(value);
 		}
 
-		@Override
-		public boolean isValid() {
-			return StringUtils.isNotBlank(getValue()) && getValue().length() == 4 && betweenMinMax();
-		}
-
-		private boolean betweenMinMax() {
-			int year = Integer.parseInt(getValue());
+		private boolean betweenMinMax(String value) {
+			int year = Integer.parseInt(value);
 			return min <= year && year <= max;
 		}
 	}
@@ -141,52 +136,63 @@ class PassportData {
 	@Value
 	@ToString(callSuper = true)
 	@EqualsAndHashCode(callSuper = true)
-	static class BirthYearEntry extends YearEntry {
+	static class BirthYearEntry extends PassportEntry {
 
 		private static final String BIRTH_YEAR = "byr";
 
+		YearValidator yearValidator;
+
 		public BirthYearEntry(String value) {
-			super(BIRTH_YEAR, value, 1920, 2002);
+			super(BIRTH_YEAR, value);
+			this.yearValidator = new YearValidator(1920, 2002);
 		}
 
 		@Override
-		public boolean isRequired() {
-			return true;
+		boolean isValid() {
+			return yearValidator.isValid(getValue());
 		}
 	}
 
 	@Value
 	@ToString(callSuper = true)
 	@EqualsAndHashCode(callSuper = true)
-	static class IssueYearEntry extends YearEntry {
+	static class IssueYearEntry extends PassportEntry {
 
 		private static final String ISSUE_YEAR = "iyr";
 
+		YearValidator yearValidator;
+
 		public IssueYearEntry(String value) {
-			super(ISSUE_YEAR, value, 2010, 2020);
+			super(ISSUE_YEAR, value);
+			this.yearValidator = new YearValidator(2010, 20202);
 		}
 
 		@Override
-		public boolean isRequired() {
-			return true;
+		boolean isValid() {
+			return yearValidator.isValid(getValue());
 		}
+
 	}
 
 	@Value
 	@ToString(callSuper = true)
 	@EqualsAndHashCode(callSuper = true)
-	static class ExpirationYearEntry extends YearEntry {
+	static class ExpirationYearEntry extends PassportEntry {
 
 		private static final String EXPIRATION_YEAR = "eyr";
 
+		YearValidator yearValidator;
+
 		public ExpirationYearEntry(String value) {
-			super(EXPIRATION_YEAR, value, 2020, 2030);
+			super(EXPIRATION_YEAR, value);
+			this.yearValidator = new YearValidator(2020, 2030);
 		}
 
 		@Override
-		public boolean isRequired() {
-			return true;
+		boolean isValid() {
+			return yearValidator.isValid(getValue());
 		}
+
 	}
 
 	@Value
@@ -219,10 +225,6 @@ class PassportData {
 			return Integer.parseInt(getValue().substring(0, getValue().length() - 2));
 		}
 
-		@Override
-		public boolean isRequired() {
-			return true;
-		}
 	}
 
 	@Value
@@ -242,10 +244,6 @@ class PassportData {
 			return COLOR_MATCHER.matcher(getValue()).matches();
 		}
 
-		@Override
-		public boolean isRequired() {
-			return true;
-		}
 	}
 
 	@Value
@@ -264,10 +262,6 @@ class PassportData {
 			return Arrays.asList("amb", "blu", "brn", "gry", "grn", "hzl", "oth").contains(getValue());
 		}
 
-		@Override
-		public boolean isRequired() {
-			return true;
-		}
 	}
 
 	@Value
@@ -287,10 +281,6 @@ class PassportData {
 			return PASSPORT_ID_MATCHER.matcher(getValue()).matches();
 		}
 
-		@Override
-		public boolean isRequired() {
-			return true;
-		}
 	}
 
 	@Value
@@ -309,9 +299,5 @@ class PassportData {
 			return true;
 		}
 
-		@Override
-		public boolean isRequired() {
-			return false;
-		}
 	}
 }

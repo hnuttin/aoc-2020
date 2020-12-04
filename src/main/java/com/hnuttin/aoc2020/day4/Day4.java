@@ -3,7 +3,9 @@ package com.hnuttin.aoc2020.day4;
 import java.util.List;
 
 import com.hnuttin.aoc2020.common.app.AocApp;
+import com.hnuttin.aoc2020.common.app.AocDay;
 
+@AocDay
 public class Day4 {
 
 	public static void main(String... args) {

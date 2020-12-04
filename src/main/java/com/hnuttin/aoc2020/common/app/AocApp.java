@@ -37,8 +37,8 @@ public class AocApp<I> {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	public static <I> AocAppBuilder<I> forDay(int day) {
-		//noinspection unchecked
 		return new AocAppBuilder<I>()
 				.withDay(day)
 				.withInputParser(rawInput -> (I) rawInput);

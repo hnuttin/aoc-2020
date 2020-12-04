@@ -5,7 +5,9 @@ import static java.util.stream.Collectors.toList;
 import java.util.List;
 
 import com.hnuttin.aoc2020.common.app.AocApp;
+import com.hnuttin.aoc2020.common.app.AocDay;
 
+@AocDay
 public class Day1 {
 
 	public static void main(String... args) {
