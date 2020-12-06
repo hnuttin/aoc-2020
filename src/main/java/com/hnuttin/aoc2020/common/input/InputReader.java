@@ -1,4 +1,4 @@
-package com.hnuttin.aoc2020.common.app;
+package com.hnuttin.aoc2020.common.input;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,7 +9,7 @@ import org.apache.commons.io.IOUtils;
 
 public class InputReader {
 
-	static List<String> readInput(int day) {
+	public static List<String> readInput(int day) {
 		String path = String.format("com/hnuttin/aoc2020/day%s/day%s.input", day, day);
 		try (InputStream resourceAsStream = InputReader.class.getClassLoader().getResourceAsStream(path)) {
 			if (resourceAsStream != null) {
@@ -21,4 +21,5 @@ public class InputReader {
 			throw new RuntimeException(e);
 		}
 	}
+
 }

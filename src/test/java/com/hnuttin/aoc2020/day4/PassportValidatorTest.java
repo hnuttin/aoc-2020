@@ -1,8 +1,10 @@
 package com.hnuttin.aoc2020.day4;
 
+import static com.hnuttin.aoc2020.common.input.InputParsers.aMultiLineParser;
+import static com.hnuttin.aoc2020.day4.PassportValidator.countValidPassportStructures;
+import static java.util.Arrays.asList;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.junit.jupiter.api.Test;
@@ -11,7 +13,7 @@ class PassportValidatorTest {
 
 	@Test
 	void testPart1() {
-		List<PassportData> passportData = PassportDataReader.fromRawInput(Arrays.asList(
+		List<PassportData> passportData = aMultiLineParser(PassportData::fromRawInput).parse(asList(
 				"ecl:gry pid:860033327 eyr:2020 hcl:#fffffd",
 				"byr:1937 iyr:2017 cid:147 hgt:183cm",
 				"",
@@ -27,7 +29,7 @@ class PassportValidatorTest {
 				"iyr:2011 ecl:brn hgt:59in"
 		));
 
-		assertThat(PassportValidator.countValidPassportStructures(passportData)).isEqualTo(2);
+		assertThat(countValidPassportStructures(passportData)).isEqualTo(2);
 	}
 
 }

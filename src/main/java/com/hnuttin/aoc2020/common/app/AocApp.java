@@ -6,6 +6,8 @@ import java.util.function.Function;
 
 import org.apache.commons.lang3.time.StopWatch;
 
+import com.hnuttin.aoc2020.common.input.InputReader;
+
 import lombok.Builder;
 import lombok.Value;
 
