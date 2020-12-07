@@ -35,7 +35,8 @@ public class AocApp<I> {
 			StopWatch stopWatch = StopWatch.createStarted();
 			Object result = part.apply(input);
 			stopWatch.stop();
-			System.out.printf("\tPart %s (%sms): %s%n", partNumber, stopWatch.getTime(TimeUnit.MILLISECONDS), result);
+			String color = stopWatch.getTime(TimeUnit.MILLISECONDS) > 200 ? "\u001b[31m" : "";
+			System.out.printf("\tPart %s (%s%sms%s): %s%n", partNumber, color, stopWatch.getTime(TimeUnit.MILLISECONDS), "\u001b[0m", result);
 		}
 	}
 
