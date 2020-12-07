@@ -1,8 +1,10 @@
 package com.hnuttin.aoc2020.day6;
 
+import static java.nio.charset.Charset.defaultCharset;
+import static org.apache.commons.io.IOUtils.readLines;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.Arrays;
+import java.io.IOException;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -15,24 +17,8 @@ class AnswerCalculatorTest {
 	private List<GroupAnswers> groupAnswers;
 
 	@BeforeEach
-	void setup() {
-		groupAnswers = InputParsers.aMultiLineParser(GroupAnswers::new).parse(Arrays.asList(
-				"abc",
-				"",
-				"a",
-				"b",
-				"c",
-				"",
-				"ab",
-				"ac",
-				"",
-				"a",
-				"a",
-				"a",
-				"a",
-				"",
-				"b"
-		));
+	void setup() throws IOException {
+		groupAnswers = InputParsers.aMultiLineParser(GroupAnswers::new).parse(readLines(getClass().getResourceAsStream("test.input"), defaultCharset()));
 	}
 
 	@Test
