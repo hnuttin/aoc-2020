@@ -12,7 +12,8 @@ public class Day10 {
 	public static void main(String... args) {
 		AocApp.<List<Integer>>forDay(10)
 				.withInputParser(InputParsers.aLineParser(Integer::parseInt)::parse)
-				.withPart1(AdapterChainCalculator::calculate)
+				.withPart1(AdapterChainCalculator::calculateDifferences)
+				.withPart2(AdapterChainCalculator::calculateValidCombinations)
 				.run();
 	}
 }

@@ -13,17 +13,31 @@ import org.junit.jupiter.api.Test;
 class AdapterChainCalculatorTest {
 
 	@Test
-	void test1Input() throws IOException {
+	void part1Input1() throws IOException {
 		List<Integer> input = aLineParser(Integer::parseInt).parse(readLines(getClass().getResourceAsStream("test1.input"), defaultCharset()));
 
-		assertThat(AdapterChainCalculator.calculate(input)).isEqualTo(35);
+		assertThat(AdapterChainCalculator.calculateDifferences(input)).isEqualTo(35);
 	}
 
 	@Test
-	void test2Input() throws IOException {
+	void part1Input2() throws IOException {
 		List<Integer> input = aLineParser(Integer::parseInt).parse(readLines(getClass().getResourceAsStream("test2.input"), defaultCharset()));
 
-		assertThat(AdapterChainCalculator.calculate(input)).isEqualTo(220);
+		assertThat(AdapterChainCalculator.calculateDifferences(input)).isEqualTo(220);
+	}
+
+	@Test
+	void part2Input1() throws IOException {
+		List<Integer> input = aLineParser(Integer::parseInt).parse(readLines(getClass().getResourceAsStream("test1.input"), defaultCharset()));
+
+		assertThat(AdapterChainCalculator.calculateValidCombinations(input)).isEqualTo(8L);
+	}
+
+	@Test
+	void part2Input2() throws IOException {
+		List<Integer> input = aLineParser(Integer::parseInt).parse(readLines(getClass().getResourceAsStream("test2.input"), defaultCharset()));
+
+		assertThat(AdapterChainCalculator.calculateValidCombinations(input)).isEqualTo(19208L);
 	}
 
 }
