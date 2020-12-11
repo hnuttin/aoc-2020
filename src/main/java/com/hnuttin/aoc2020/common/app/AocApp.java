@@ -27,6 +27,7 @@ public class AocApp<I> {
 		System.out.println("Parsing input...");
 		I parsedInput = inputParser.apply(InputReader.readInput(day));
 		runPart(part1, parsedInput, 1);
+		parsedInput = inputParser.apply(InputReader.readInput(day));
 		runPart(part2, parsedInput, 2);
 	}
 

@@ -9,7 +9,8 @@ public class Day11 {
 	public static void main(String... args) {
 		AocApp.<SeatLayout>forDay(11)
 				.withInputParser(SeatLayout::fromRawInput)
-				.withPart1(SeatLayout::runUntilStable)
+				.withPart1(seedLayout -> seedLayout.runUntilStable(true))
+				.withPart2(seedLayout -> seedLayout.runUntilStable(false))
 				.run();
 	}
 }

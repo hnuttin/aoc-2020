@@ -16,12 +16,17 @@ class SeatLayoutTest {
 	@BeforeEach
 	void setup() throws IOException {
 		seatLayout = SeatLayout.fromRawInput(IOUtils.readLines(getClass().getResourceAsStream("test.input"), Charset.defaultCharset()));
-//		seatLayout.enablePrint();
+		seatLayout.enablePrint();
 	}
 
 	@Test
 	void testPart1() {
-		assertThat(seatLayout.runUntilStable()).isEqualTo(37L);
+		assertThat(seatLayout.runUntilStable(true)).isEqualTo(37L);
+	}
+
+	@Test
+	void testPart2() {
+		assertThat(seatLayout.runUntilStable(false)).isEqualTo(26L);
 	}
 
 }
