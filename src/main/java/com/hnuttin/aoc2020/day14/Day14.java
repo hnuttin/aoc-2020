@@ -10,7 +10,8 @@ public class Day14 {
 
 	public static void main(String... args) {
 		AocApp.<List<String>>forDay(14)
-				.withPart1(instructions -> new Memory().initialize(instructions))
+				.withPart1(instructions -> new Memory().initialize(instructions, false))
+				.withPart2(instructions -> new Memory().initialize(instructions, true))
 				.run();
 	}
 
