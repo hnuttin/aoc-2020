@@ -17,6 +17,7 @@ public class AocApp<I> {
 
 	int day;
 
+	I input;
 	Function<List<String>, I> inputParser;
 	Function<String, I> inputEntryParser;
 	Function<I, Object> part1;
@@ -25,10 +26,12 @@ public class AocApp<I> {
 	private void run() {
 		System.out.printf("Day %s...%n", day);
 		System.out.println("Parsing input...");
-		I parsedInput = inputParser.apply(InputReader.readInput(day));
-		runPart(part1, parsedInput, 1);
-		parsedInput = inputParser.apply(InputReader.readInput(day));
-		runPart(part2, parsedInput, 2);
+		runPart(part1, getParsedInput(), 1);
+		runPart(part2, getParsedInput(), 2);
+	}
+
+	private I getParsedInput() {
+		return input == null ? inputParser.apply(InputReader.readInput(day)) : input;
 	}
 
 	private void runPart(Function<I, Object> part, I input, int partNumber) {
